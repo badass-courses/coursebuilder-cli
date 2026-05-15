@@ -1,6 +1,8 @@
 # Course Builder CLI
 
-Public release channel for the Course Builder `cb` CLI.
+Public release channel for the Course Builder `cb` CLI and agent skills.
+
+## Install the CLI
 
 Install the latest portable Bun-compiled binary:
 
@@ -15,6 +17,18 @@ curl -fsSL https://github.com/badass-courses/coursebuilder-cli/releases/latest/d
 ```
 
 The installer supports macOS and Linux on arm64/x64, downloads the matching release asset, and verifies `cb-checksums.txt` when `sha256sum` or `shasum` is available.
+
+## Install the Just React creator agent skill
+
+Install the skill globally for your agent:
+
+```sh
+npx skills add -y -g badass-courses/coursebuilder-cli --skill just-react-creator
+```
+
+The skill teaches an agent how to use `cb` with Just React, create/update sketch posts, add local images through signed S3 URLs, and upload video through multipart upload.
+
+## Release assets
 
 Binaries are attached to `cb-v*` GitHub Releases:
 

@@ -80,12 +80,8 @@ esac
 if [ "$VERSION" = "latest" ]; then
 	releases_json="$(curl -fsSL "https://api.github.com/repos/$REPO/releases?per_page=100")"
 	VERSION="$(printf '%s' "$releases_json" |
-		tr '\n' ' ' |
-		sed 's/},{/}\
-{/g' |
-		grep -o '"tag_name":"cb-v[^"]*"' |
-		head -n 1 |
-		cut -d'"' -f4)"
+		sed -n 's/.*"tag_name"[[:space:]]*:[[:space:]]*"\(cb-v[^"]*\)".*/\1/p' |
+		head -n 1)"
 
 	if [ -z "$VERSION" ]; then
 		echo "Could not find any cb-v* release tags in $REPO." >&2

@@ -13,7 +13,7 @@ curl -fsSL https://github.com/badass-courses/coursebuilder-cli/releases/latest/d
 Install a specific release:
 
 ```sh
-curl -fsSL https://github.com/badass-courses/coursebuilder-cli/releases/latest/download/install.sh | sh -s -- --version cb-v0.3.1
+curl -fsSL https://github.com/badass-courses/coursebuilder-cli/releases/latest/download/install.sh | sh -s -- --version cb-v0.3.2
 ```
 
 The installer supports macOS and Linux on arm64/x64, downloads the matching release asset, and verifies `cb-checksums.txt` when `sha256sum` or `shasum` is available.
@@ -26,7 +26,7 @@ Install the skill globally for your agent:
 npx skills add -y -g badass-courses/coursebuilder-cli --skill just-react-creator
 ```
 
-The skill teaches an agent how to use `cb` with Just React, create/update sketch posts, add local images through signed S3 URLs, and upload video through multipart upload.
+The skill teaches an agent how to use `cb` with Just React, create/update sketch posts, add local images through Cloudinary uploads, and upload video through multipart upload.
 
 ## Release assets
 

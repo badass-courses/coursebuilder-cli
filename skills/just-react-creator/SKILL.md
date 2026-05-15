@@ -1,6 +1,6 @@
 ---
 name: just-react-creator
-description: Publish Just React creator content with the public Course Builder cb CLI. Use when creating or updating Just React sketch posts, adding images to posts, uploading local images through signed S3 URLs, uploading videos/media through multipart upload, logging in to Just React, or exploring the Just React content API.
+description: Publish Just React creator content with the public Course Builder cb CLI. Use when creating or updating Just React sketch posts, adding local images to posts through Cloudinary uploads, uploading videos/media through multipart upload, logging in to Just React, or exploring the Just React content API.
 ---
 
 # Just React Creator
@@ -95,36 +95,33 @@ cb resource update <post-id> \
 
 ### If the image is local
 
-Use the signed S3 upload URL flow. This stores the image in the Just React upload bucket and returns a public URL. Do **not** trigger video processing for images.
+Use the Cloudinary image upload command. It signs the upload server-side, uploads the local file directly to Cloudinary, and returns Markdown with the final `res.cloudinary.com` URL.
 
-1. Get a signed upload URL:
+Supported local image types: `.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`, `.avif`.
+
+Upload and print Markdown:
 
 ```sh
-cb creator upload signed-url \
+cb creator upload image ./image.png \
   --app just-react \
-  --object-name image.png
+  --parent-resource-id <post-id> \
+  --alt "Alt text"
 ```
 
-2. Parse `result.signedUrl` and `result.publicUrl` from the JSON response.
-
-3. Upload the local file to the signed URL:
+Upload and append the Markdown image to the post body:
 
 ```sh
-curl -fsSL -X PUT --upload-file ./image.png "$SIGNED_URL"
-```
-
-4. Add the public URL to the post body:
-
-```md
-![Alt text](PUBLIC_URL_FROM_RESPONSE)
-```
-
-5. Update the post:
-
-```sh
-cb resource update <post-id> \
+cb creator upload image ./image.png \
   --app just-react \
-  --body '{"fields":{"body":"Updated Markdown body with ![Alt text](PUBLIC_URL_FROM_RESPONSE)"}}'
+  --parent-resource-id <post-id> \
+  --alt "Alt text" \
+  --append-markdown
+```
+
+Verify the post body after append:
+
+```sh
+cb resource get <post-id> --app just-react
 ```
 
 ## Upload video/media
@@ -145,4 +142,4 @@ Use `cb creator upload list-pending` if a large upload is interrupted.
 - Prefer `--token "$JRE_TOKEN"` in automation instead of pasting literal tokens.
 - Create a tiny private/unlisted test post first when validating a new workflow.
 - Use `state=published` and `visibility=public` only when the user confirms it should go live.
-- For images, use signed URL upload plus Markdown. For videos, use `creator upload file`.
+- For images, use `creator upload image` plus Markdown. For videos, use `creator upload file`.

@@ -1,6 +1,6 @@
 ---
 name: just-react-creator
-description: Publish Just React creator content with the public Course Builder cb CLI. Use when creating or updating Just React sketch posts, adding images to posts, uploading local images through signed S3 URLs, uploading videos/media through multipart upload, logging in Dan Abramov, or exploring the Just React content API.
+description: Publish Just React creator content with the public Course Builder cb CLI. Use when creating or updating Just React sketch posts, adding images to posts, uploading local images through signed S3 URLs, uploading videos/media through multipart upload, logging in to Just React, or exploring the Just React content API.
 ---
 
 # Just React Creator
